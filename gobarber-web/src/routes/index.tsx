@@ -1,0 +1,12 @@
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import SingIn from '../pages/SingIn';
+
+const RoutesComponents: React.FC = () => (
+  <Routes>
+    <Route path="/" element={<SingIn />} />
+  </Routes>
+);
+
+export default RoutesComponents;
