@@ -31,7 +31,7 @@ const SingIn: React.FC = () => {
             <a href="/">Esqueci minha senha</a>
           </form>
 
-          <a href="/">
+          <a href="/singup">
             <FiLogIn />
             Criar Conta
           </a>
