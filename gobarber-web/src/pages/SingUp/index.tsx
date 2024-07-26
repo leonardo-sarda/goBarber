@@ -17,7 +17,7 @@ const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async (data: object) => {
-    console.log(data);
+    // console.log(data);
 
     try {
       const schema = y.object().shape({
