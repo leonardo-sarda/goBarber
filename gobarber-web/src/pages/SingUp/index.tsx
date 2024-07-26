@@ -17,8 +17,6 @@ const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async (data: object) => {
-    // console.log(data);
-
     try {
       const schema = y.object().shape({
         name: y.string().required('Nome é obrigatório'),
