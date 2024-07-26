@@ -1,8 +1,10 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useContext } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import * as y from 'yup';
 import { Form } from '../../components/Form';
+
+import { AuthContext } from '../../context/AuthContext';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -13,28 +15,43 @@ import Button from '../../components/Button';
 
 import { Container, Content, Background } from './style';
 
+interface SingInFormData {
+  email: string;
+  password: string;
+}
+
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      const schema = y.object().shape({
-        name: y.string().required('Nome é obrigatório'),
-        email: y
-          .string()
-          .required('E-mail é obrigatório')
-          .email('E-mail inválido'),
-        password: y.string().required('Senha obrigatorio'),
-      });
+  // Auteticação------------
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err: any) {
-      const errors = getValidationErrors(err);
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+  const { singIn } = useContext(AuthContext);
+
+  // Auteticação---------------
+
+  const handleSubmit = useCallback(
+    async (data: SingInFormData) => {
+      try {
+        const schema = y.object().shape({
+          email: y
+            .string()
+            .required('E-mail é obrigatório')
+            .email('E-mail inválido'),
+          password: y.string().required('Senha obrigatorio'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        singIn({ email: data.email, password: data.password });
+      } catch (err: any) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+      }
+    },
+    [singIn],
+  );
   return (
     <>
       <Container>
