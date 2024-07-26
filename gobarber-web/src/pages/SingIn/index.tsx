@@ -4,7 +4,7 @@ import { FormHandles } from '@unform/core';
 import * as y from 'yup';
 import { Form } from '../../components/Form';
 
-import { AuthContext } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -25,7 +25,7 @@ const SingIn: React.FC = () => {
 
   // Auteticação------------
 
-  const { singIn } = useContext(AuthContext);
+  const { user, singIn } = useAuth();
 
   // Auteticação---------------
 
