@@ -46,8 +46,10 @@ const SingIn: React.FC = () => {
 
         singIn({ email: data.email, password: data.password });
       } catch (err: any) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
+        if (err instanceof y.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        }
       }
     },
     [singIn],
